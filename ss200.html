@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+	const user = {
+		firstName: "Joseph",
+		lastName: "Kuruvilla",
+		age: 38,
+		address: {
+			number: "239",
+			street: "Ludwig Lane",
+			city: "Chennai",
+			zip: "600028",
+			prop1: {
+				prop25: {
+					prop3: {
+						prop4: {
+							value: "sample",
+						},
+					},
+				},
+			},
+		},
+	};
+	console.log(user?.address?.prop1?.prop2?.prop3?.prop4?.value);
+	if(!user?.lastName?.a){
+		alert('参数不存在')
+    }
+</script>
+</body>
+</html>
