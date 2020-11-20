@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    4
+    <meta charset="utf-8"/>
+    5 <title>孙三峰--博客园</title>
+    6
+    <script type="text/javascript" src="js/vue2.0.3.js"></script>
+    7
+    <script type="text/javascript">
+		8             //准备一个空的实例对象
+		9
+		var Event = new Vue();
+		10
+		var A = {
+			11                 template
+		:
+		`
+                     <div style="border: 1px solid red; margin-bottom: 10px； width: 300px;">                      <h4>A组件</h4>
+                         <p>{{a}}</p>                        <input type="button" value="把A数据给C" @click="send" />
+                    </div>
+                `,
+			18
+		data()
+		{
+			19
+			return {
+				20                         a
+		:
+			'我是A里面的数据'
+			21
+		}
+			22
+		}
+		,
+		23
+		methods:{
+			24
+			send()
+			{        //A发送数据
+				25
+				Event.$emit('a-msg', this.a);
+				26
+			}
+			27
+		}
+		28
+		}
+		;
+		29
+		var B = {
+			30                 template
+		:
+		`                    <div style="border: 1px solid green; margin-bottom: 10px； width: 300px;">
+                       <h4>B组件</h4>
+                      <p>{{b}}</p>
+                       <input type="button" value="把B数据给C" @click="send" />
+                   </div>
+                `,
+			37
+		data()
+		{
+			38
+			return {
+				39                         b
+		:
+			'我是B里面的数据'
+			40
+		}
+			41
+		}
+		,
+		42
+		methods:{
+			43
+			send()
+			{
+				44
+				Event.$emit('b-msg', this.b);
+				45
+			}
+			46
+		}
+		47
+		}
+		;
+		48
+		var C = {
+			49                 template
+		:
+		`                   <div style="border: 1px dotted green; margin-bottom: 10px；width: 300px;">
+                        <h4>我是C组件,我在坐等接收数据</h4>
+                        <p>{{a}}</p>
+                       <p>{{b}}</p>
+                   </div>
+               `,
+			56
+		data()
+		{
+			57
+			return {
+				58                         a
+		:
+			'',
+				59
+			b:''
+			60
+		}
+			61
+		}
+		,
+		62
+		mounted()
+		{        //两种接收的方式
+			63
+			var _this = this;
+			64
+			Event.$on('a-msg', function (a) {
+				65
+				_this.a = a;
+				66
+			});
+			67
+			Event.$on('b-msg', function (b) {
+				68
+				this.b = b;
+				69
+			}.bind(this))
+			70
+		}
+		71
+		}
+		;
+		72
+		window.onload = function () {
+			73
+			new Vue({
+				74                     el
+		:
+			'#box',
+				75
+			data:{
+				76
+				77
+			}
+		,
+			78
+			components:{
+				79
+				'com-a'
+			:
+				A,
+					80
+				'com-b'
+			:
+				B,
+					81
+				'com-c'
+			:
+				C
+				82
+			}
+			83
+		})
+			84
+		}
+		85         </script>
+    86
+</head>
+87
+<body>
+88
+<div id="box">
+    89
+    <com-a></com-a>
+    90
+    <com-b></com-b>
+    91
+    <com-c></com-c>
+    92
+</div>
+93
+</body>
+94
+</html>
