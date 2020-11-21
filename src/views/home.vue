@@ -28,7 +28,9 @@
                 <Button type="default" size="large" @click="showInfo = false">返回</Button>
             </div>
         </Modal>
-        <Button type="primary" style="text-align: left" @click="showModel('add')">新增员工</Button>
+        <Button type="primary" style="text-align: right" @click="showModel('add')">新增员工</Button>
+        <Input v-model="search" placeholder="请输入名字查询" style="width: 200px"/>
+        <Button style="text-align: left" @click="searchList">查询</Button>
         <Table border :columns="columns" :data="list"></Table>
     </div>
 </template>
@@ -39,6 +41,7 @@
 	export default {
 		data() {
 			return {
+				search: '',
 				loading: false,
 				showInfo: false,
 				createUser: {},
@@ -121,6 +124,13 @@
 			this.getList()
 		},
 		methods: {
+			searchList() {
+				axios.post('http://localhost:8080/person/getListByParams', {name: this.search}).then(res => {
+					if (res.data.code == 100) {
+						this.list = res.data.data
+					}
+				})
+			},
 			showModel(type, data) {
 				if (type === 'add') {
 					this.saveType = 'add'
@@ -128,49 +138,60 @@
 				} else {
 					this.saveType = 'upd'
 					this.createUser = data
-                    data.sex = data.sex+''
+					data.sex = data.sex + ''
 				}
 				this.showInfo = true
 			},
 			save(data) {
 				if (this.saveType === 'add') {
-					data.id = 8
 					axios.post('http://localhost:8080/person/add', data).then(res => {
-						if (res.code == 100) {
+						if (res.data.code == 100) {
 							this.getList()
 							this.$Message.success('添加成功')
 							this.showInfo = false
 						}
 					})
 				} else {
+					delete data._index
+					delete data._rowKey
+					delete data.nationality
 					axios.post('http://localhost:8080/person/upd', data).then(res => {
-						if (res.data === 'ok') {
+						console.log(res);
+						if (res.data.code == 100) {
 							this.getList()
 							this.$Message.success('修改成功')
 							this.showInfo = false
 						}
+					}).catch(err => {
+						console.log(err);
 					})
 				}
 			},
 			getList() {
 				axios.get('http://localhost:8080/person/list').then(res => {
-					console.log(res);
-					this.list = res.data
+					if (res.data.code == 100) {
+						this.list = res.data.data
+					}
 				}).catch(err => {
 					console.log(err);
 				})
 			},
 			deleteCard(data) {
-				delete data._index
-				delete data._rowKey
-				delete data.nationality
-				axios.post('http://localhost:8080/person/delete', {id: 11}).then(res => {
-					if (res.data === 'ok') {
+				axios.post('http://localhost:8080/person/delete', {id: data.id}).then(res => {
+					console.log(res);
+					if (res.data.code == 100) {
 						this.getList()
 						this.$Message.success('删除成功')
 					}
 				})
 			}
 		},
+		watch: {
+			search(val) {
+				if (!val) {
+					this.searchList()
+				}
+			}
+		}
 	}
 </script>
