@@ -11,6 +11,9 @@ import ViewUI from 'view-design';
 import 'view-design/dist/styles/iview.css';
 Vue.use(JKUI)
 Vue.use(ViewUI);
+import VueGnComponents from "vue-gn-components";
+import "vue-gn-components/lib/style/index.css";
+Vue.use(VueGnComponents)
 
 Vue.config.productionTip = false
 

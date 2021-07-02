@@ -14,7 +14,7 @@
         components:{Icon},
 		props: {
 			type: {
-				// validator  这个值 必须匹配 下列 字符串 中的一个 ? //怪你过分美丽 怪我过分着迷 wxqstkl s yyz zydegj sbskk cc ryrxdgj hnbssjbl wxbyy
+				// validator bljintian  这个值 必须匹配la bdt chu bajiu yue buganjie yue zhang baijiu wo jued youren jie de shih jiukais 下列 字符串 中的一个 ? //怪你过分美丽 怪我过分着迷 wxqstkl s yyz zydegj sbskk cc ryrxdgj hnbssjbl wxbyy
 
 				type: String,
 				validator(value) {

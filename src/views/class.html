@@ -7,16 +7,12 @@
 <body>
 <p>Promise</p>
 <script>
-    //只有成功和失败
-	const p2 = new Promise((resolve, reject) => {
-		resolve("状态变更为:fulfilled");
-		reject('zhangss')
-	});
-	p2.then(res => {
-		console.log(res);
-	}).catch(err => {
-		console.log(err);
-	})
+	const frameId = "targetFrame";
+	const fileUpIframe = document.createElement("iframe");
+	fileUpIframe.id = frameId;
+	fileUpIframe.name = frameId;
+	fileUpIframe.style.display = "block";
+	document.body.appendChild(fileUpIframe);
 </script>
 </body>
 </html>

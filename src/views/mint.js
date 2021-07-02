@@ -43,6 +43,8 @@ const getScrollBarWidth = () => {
 	if (scrollBarWidth !== undefined) return scrollBarWidth;
 
 	const outer = document.createElement('div');
+	//1  //2  //3   //4  //5
+	//=1 //=2 //=3 //=4 //=5
 	outer.style.visibility = 'hidden';
 	outer.style.width = '100px';
 	outer.style.position = 'absolute';

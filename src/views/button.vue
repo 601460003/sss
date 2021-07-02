@@ -1,30 +1,22 @@
 <template>
-    <div>
-        <button>子组件</button>
-    </div>
+       <div>
+           <template>
+               <check-in :checkIns="checkIns" />
+           </template>
+       </div>
 </template>
 
 <script>
+
 	export default {
 		props:['current'],
         data(){
 			return{
-				currentDate:'',
-				year: '',
-				month:'',
-				date: '',
-				allMothList:[],
+				checkIns: ['2019-12-15', '2019.12.18', 1576250061182]
             }
         },
-        created(){
-			this.year=this.current.slice(0,4)
-			this.month=this.current.slice(6,7)
-			this.date=this.current.slice(9,10)
-		},
         methods:{
-			happy(){
-				alert(11)
-            }
+
         }
 	}
 </script>

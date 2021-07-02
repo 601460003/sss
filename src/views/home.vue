@@ -29,18 +29,25 @@
             </div>
         </Modal>
         <Button type="primary" style="text-align: right" @click="showModel('add')">新增员工</Button>
-        <Input v-model="search" placeholder="请输入名字查询" style="width: 200px"/>
+        <Input v-model="search" placeholder="请输入名字查询 " style="width: 200px"/>
         <Button style="text-align: left" @click="searchList">查询</Button>
         <Table border :columns="columns" :data="list"></Table>
+        <input type="text" v-model="name">
+        <BT ref="bt" @changeBT="changeBT" :name.sync="name" ></BT>
     </div>
 </template>
 
 <script>
+    import BT from './button'
 	import axios from 'axios'
 
 	export default {
+    	components:{
+    		BT
+        },
 		data() {
 			return {
+				name:'22',
 				search: '',
 				loading: false,
 				showInfo: false,
@@ -124,9 +131,15 @@
 			this.getList()
 		},
 		methods: {
+			changeBT(a){
+				console.log(a);
+				console.log(this.$refs.bt);
+				this.$refs.bt.name = 222
+			},
 			searchList() {
-				axios.post('http://localhost:8080/person/getListByParams', {name: this.search}).then(res => {
+				axios.post('getListByParams', {name: this.search}).then(res => {
 					if (res.data.code == 100) {
+						//today
 						this.list = res.data.data
 					}
 				})
@@ -144,18 +157,20 @@
 			},
 			save(data) {
 				if (this.saveType === 'add') {
-					axios.post('http://localhost:8080/person/add', data).then(res => {
+					axios.post('person/add', data).then(res => {
 						if (res.data.code == 100) {
 							this.getList()
 							this.$Message.success('添加成功')
 							this.showInfo = false
-						}
+						}else {
+							this.$Message.success(res.data.msg)
+                        }
 					})
 				} else {
 					delete data._index
 					delete data._rowKey
 					delete data.nationality
-					axios.post('http://localhost:8080/person/upd', data).then(res => {
+					axios.post('person/upd', data).then(res => {
 						console.log(res);
 						if (res.data.code == 100) {
 							this.getList()
@@ -168,7 +183,7 @@
 				}
 			},
 			getList() {
-				axios.get('http://localhost:8080/person/list').then(res => {
+				axios.get('person/list').then(res => {
 					if (res.data.code == 100) {
 						this.list = res.data.data
 					}
@@ -177,7 +192,7 @@
 				})
 			},
 			deleteCard(data) {
-				axios.post('http://localhost:8080/person/delete', {id: data.id}).then(res => {
+				axios.post('person/delete', {id: data.id}).then(res => {
 					console.log(res);
 					if (res.data.code == 100) {
 						this.getList()
