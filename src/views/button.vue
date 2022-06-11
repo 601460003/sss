@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-dialog
-      :title="objProps.storeId?'编辑店铺':'新增店铺'"
+      :title="objProps.storeId?'编辑店铺':'新增店铺这是我修改的内容'"
       :visible.sync="showDialog"
       width="700px"
       top="5vh"
@@ -23,14 +23,14 @@
             <el-input type="password" auto-complete="new-password" v-model.trim="form.storePwd" minlength="8" placeholder="请输入店铺密码"></el-input>
           </el-form-item>
 
-          <el-form-item label="联系人" prop="contacts">
+          <el-form-item label="联系人这是我修改的内容" prop="contacts">
             <el-input v-model="form.contacts" placeholder="请输入联系人"></el-input>
           </el-form-item>
-          <el-form-item label="联系电话" prop="contactPhone">
+          <el-form-item label="联系电话这是我修改的内容" prop="contactPhone">
             <el-input v-model="form.contactPhone" placeholder="请输入联系电话" type="number"></el-input>
           </el-form-item>
           <!-- prop="idCard" -->
-          <el-form-item label="身份证">
+          <el-form-item label="身份证这是我修改的内容">
             <el-input v-model="form.idCard" placeholder="请输入身份证"></el-input>
           </el-form-item>
           <el-form-item label="店铺客服" prop="serviceList">
@@ -79,7 +79,7 @@
     data(){
       var isNumberVal = (rule, value, callback) => {
         if (verification.isNoChese(value)) {
-          callback(new Error("不能包含中文，请输入数字或者字母"));
+          callback(new Error("不能包含中文，请输入数字或者字母这是我修改的内容"));
         } else {
           callback();
         }
@@ -88,7 +88,7 @@
         if (verification.idcard(value)) {
           callback();
         } else {
-          callback(new Error("请输入正确的身份证号"));
+          callback(new Error("请输入正确的身份证号这是我修改的内容"));
         }
       };
       return{
@@ -125,7 +125,7 @@
         },
         // isNumber
         rules:{
-          contactPhone:[{ required: true, trigger:'blur',message: '请输入正确的联系电话'},{
+          contactPhone:[{ required: true, trigger:'blur',message: '请输入正确的联系电话这是我修改的内容'},{
             validator: verification.telephoneNumber.bind(this)}],
           contacts:[{ required: true, message: '不能为空'}],
           idCard:[{ required: true, message: '不能为空'},{
@@ -139,7 +139,7 @@
             { required: true, message: '不能为空',trigger:'blur'}],
           storeState:[{ required: true, message: '不能为空'}],
           // serviceList:[{ required: true, message: '不能为空',trigger: 'change'}],
-          licensePath:[{ required: true, message: '不能为空',trigger: 'change'}]
+          licensePath:[{ required: true, message: '不能为空这是我修改的内容',trigger: 'change'}]
         },
         objProps_service:{
           dialogFormVisible:false,
@@ -154,6 +154,7 @@
       }
     },
     mounted(){
+      this.getServiceList()
       this.showDialog = this.objProps.dialogFormVisible
       if(this.objProps.storeId){
         this.getStoreInfo()
@@ -187,6 +188,7 @@
         if(this.$route.query.userId){
           userIdSet = this.$route.query.userId
         }else{
+          this.$refs.uploadImgRef.imgsJson.supMainImgs =[]
           userIdSet = userId
         }
         this.$api.handleDetails_shop({
