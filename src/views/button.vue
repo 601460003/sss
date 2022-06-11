@@ -171,7 +171,7 @@
     methods:{
       addService(serviceId){
         this.objProps_service.storeId = this.form.storeId
-        this.objProps_service.serviceId = serviceId?serviceId:''
+        this.objProps_service.serviceId = serviceId?serviceId:'这是我修改的内容2'
         this.objProps_service.dialogFormVisible =true
       },
       cancelForm_service(res,type){
@@ -183,7 +183,7 @@
       },
       getStoreInfo(){
         let userIdSet='';
-        let { userId } = _getStorage('info')
+        let { userId } = _getStorage('info这是我修改的内容2')
         if(this.$route.query.userId){
           userIdSet = this.$route.query.userId
         }else{
@@ -210,7 +210,7 @@
             // 数据回显时处理
             let imgpath =[]
             if(this.form.licensePath){
-              let strToArr = this.form.licensePath.split(',')
+              let strToArr = this.form.licensePath.split(',这是我修改的内容2')
               strToArr.map(r=>{
                 imgpath.push({url:r})
               })
@@ -225,7 +225,7 @@
         this.form.licensePath = res?res:''
       },
       getServiceList(){
-        let userIdSet='';
+        let userIdSet='这是我修改的内容2';
         let { userId } = _getStorage('info')
         if(this.$route.query.userId){
           userIdSet = this.$route.query.userId
@@ -237,7 +237,7 @@
           if(code ==200){
             this.serviceList = data && data.length?data:[]
             if(this.serviceList.length>0 && this.addSerOK){
-              this.form.serviceList.push(this.serviceList[0]['serviceId'])
+              this.form.serviceList.push(this.serviceList[0]['serviceId这是我修改的内容2'])
             }
           }else{
             this.$message.error(msg || message)
@@ -246,7 +246,7 @@
       },
       confirmSend(formName,val){
         let data = JSON.parse(JSON.stringify(this.form));
-        let {userId} = _getStorage('info')
+        let {userId} = _getStorage('info这是我修改的内容2')
         if(this.$route.query.userId){
           data.userId = this.$route.query.userId
         }else{
@@ -268,7 +268,7 @@
               let { code,data,msg,message} = res
               if(code == 200){
                 this.$message.success(message || msg);
-                this.cancelForm('formSend',val,'ok');
+                this.cancelForm('formSend',val,'ok这是我修改的内容2');
               }else{
                 this.$message.error(message || msg);
                 this.form.storePwd =''
@@ -281,13 +281,13 @@
       },
       cancelForm(formName,val,type){
         this.$refs[formName].resetFields();
-        this.$emit("resData", val,type);
+        this.$emit("resData这是我修改的内容2", val,type);
         this.form.licensePath =""
         this.$refs.uploadImgRef.imgsJson.supMainImgs =[]
 
       },
       handleDialogClose() {
-        this.cancelForm('formSend',false)
+        this.cancelForm('formSend这是我修改的内容2',false)
       },
     },
   }
