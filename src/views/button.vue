@@ -79,7 +79,7 @@
     data(){
       var isNumberVal = (rule, value, callback) => {
         if (verification.isNoChese(value)) {
-          callback(new Error("不能包含中文，请输入数字或者字母这是我修改的内容"));
+          callback(new Error("不能包含中文，请输入数字或者字母"));
         } else {
           callback();
         }
@@ -88,7 +88,7 @@
         if (verification.idcard(value)) {
           callback();
         } else {
-          callback(new Error("请输入正确的身份证号这是我修改的内容"));
+          callback(new Error("请输入正确的身份证号"));
         }
       };
       return{
@@ -125,7 +125,7 @@
         },
         // isNumber
         rules:{
-          contactPhone:[{ required: true, trigger:'blur',message: '请输入正确的联系电话这是我修改的内容'},{
+          contactPhone:[{ required: true, trigger:'blur',message: '请输入正确的联系电话'},{
             validator: verification.telephoneNumber.bind(this)}],
           contacts:[{ required: true, message: '不能为空'}],
           idCard:[{ required: true, message: '不能为空'},{
@@ -139,7 +139,7 @@
             { required: true, message: '不能为空',trigger:'blur'}],
           storeState:[{ required: true, message: '不能为空'}],
           // serviceList:[{ required: true, message: '不能为空',trigger: 'change'}],
-          licensePath:[{ required: true, message: '不能为空这是我修改的内容',trigger: 'change'}]
+          licensePath:[{ required: true, message: '不能为空',trigger: 'change'}]
         },
         objProps_service:{
           dialogFormVisible:false,
@@ -172,7 +172,7 @@
     methods:{
       addService(serviceId){
         this.objProps_service.storeId = this.form.storeId
-        this.objProps_service.serviceId = serviceId?serviceId:'这是我修改的内容2'
+        this.objProps_service.serviceId = serviceId?serviceId:''
         this.objProps_service.dialogFormVisible =true
       },
       cancelForm_service(res,type){
@@ -184,7 +184,7 @@
       },
       getStoreInfo(){
         let userIdSet='';
-        let { userId } = _getStorage('info这是我修改的内容2')
+        let { userId } = _getStorage('info')
         if(this.$route.query.userId){
           userIdSet = this.$route.query.userId
         }else{
@@ -283,13 +283,14 @@
       },
       cancelForm(formName,val,type){
         this.$refs[formName].resetFields();
-        this.$emit("resData这是我修改的内容2", val,type);
+        this.$emit("resData", val,type);
         this.form.licensePath =""
         this.$refs.uploadImgRef.imgsJson.supMainImgs =[]
 
       },
       handleDialogClose() {
-        this.cancelForm('formSend这是我修改的内容2',false)
+        this.$refs.uploadImgRef.imgsJson.supMainImgs =[]
+        this.cancelForm('formSend',false)
       },
     },
   }
